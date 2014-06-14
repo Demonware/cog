@@ -1,0 +1,21 @@
+cog:
+  description: a flexible LDAP management program
+  partial: true
+  main:
+    --profile:
+      short: -p
+      action: store
+      dest: profile
+      metavar: <directory connection profile>
+    --list-profiles:
+      action: store_true
+      dest: list_profiles
+      metavar: <list all directory profiles>
+    --bind-dn:
+      action: store
+      dest: user_dn
+      metavar: <user bind dn>
+    --ldap-url:
+      action: store
+      dest: ldap_url
+      metavar: <ldap server(s) URL>

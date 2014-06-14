@@ -1,0 +1,82 @@
+add:
+  description: add a POSIX group
+  main:
+    cn:
+      action: store
+      metavar: <group name>
+    --type:
+      short: -t
+      action: store
+      default: generic
+      dest: group_type
+      choices:
+      - generic
+      - resource
+      metavar: <type of group>
+  additional arguments:
+    --with-uid:
+      short: -u
+      action: append
+      dest: memberUid
+      metavar: <users to add>
+    --gid-number:
+      action: store
+      dest: gidNumber
+      metavar: <group id number>
+    --description:
+      action: store
+      dest: description
+      metavar: <group description>
+
+edit:
+  description: edit a POSIX group
+  main:
+    cn:
+      action: store
+      metavar: <group name>
+    --type:
+      short: -t
+      action: store
+      default: generic
+      dest: group_type
+      choices:
+      - generic
+      - resource
+      metavar: <type of group>
+  user management:
+    --add-uid:
+      action: append
+      dest: addMemberUid
+      metavar: <users to add>
+    --del-uid:
+      action: append
+      dest: delMemberUid
+      metavar: <users to remove>
+  group metadata:
+    --gid-number:
+      action: store
+      dest: gidNumber
+      metavar: <new group ID>
+    --description:
+      action: store
+      dest: description
+      metavar: <group description>
+
+rename:
+  description: change group name
+  main:
+    cn:
+      action: store
+      metavar: <group name>
+    --new-name:
+      short: -n
+      action: store
+      dest: newCn
+      metavar: <new group name>
+
+remove:
+  description: remove group from directory
+  main:
+    cn:
+      action: store
+      metavar: <group name>

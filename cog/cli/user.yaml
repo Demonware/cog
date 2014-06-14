@@ -1,0 +1,230 @@
+add:
+  description: add new user account to the directory.
+  main:
+    name:
+      action: store
+      help: account name
+      metavar: <name>
+    --type:
+      short: -t
+      action: store
+      default: generic
+      dest: account_type
+      metavar: <type of account>
+  uid and group management:
+    --add-group:
+      action: append
+      dest: group
+      metavar: <secondary group>
+    --gid:
+      action: store
+      dest: gidNumber
+      metavar: <primary group id>
+    --uid-number:
+      action: store
+      dest: uidNumber
+      metavar: <user id number>
+    --uid:
+      action: store
+      dest: uid
+      metavar: <user\'s uid>
+  personal information:
+    --first-name:
+      action: store
+      dest: givenName
+      metavar: <account owner\'s first name>
+    --last-name:
+      action: store
+      dest: sn
+      metavar: <account owner\'s last name>
+    --full-name:
+      action: store
+      dest: cn
+      metavar: <account owner\'s full name> 
+    --email:
+      action: append
+      dest: mail
+      metavar: <email>
+    --phone-no:
+      action: append
+      dest: telephoneNumber
+      metavar: <phone number>
+    --organization:
+      short: -o
+      action: store
+      dest: o
+      metavar: <organization>
+  account specific:
+    --shell:
+      action: store
+      dest: loginShell
+      metavar: <path to the shell interpreter>
+    --home:
+      action: store
+      dest: homeDirectory
+      metavar: <path to the home directory>
+    --password:
+      short: -P
+      action: store
+      dest: userPassword
+      metavar: <account\'s owner password>
+#  miscellaneous:
+#    --ssh-public-key:
+#        action: append
+#        dest: sshPublicKey
+#        metavar: <path to public ssh key>
+
+edit:
+  description: edit existing user data in the directory
+  main:
+    name:
+      action: store
+      help: account name
+    --type:
+      short: -t
+      action: store
+      dest: account_type
+      metavar: <change account type>
+  uid and group management:
+    --add-group:
+      action: append
+      dest: addgroup
+      metavar: <add user to the group>
+    --del-group:
+      action: append
+      dest: delgroup
+      metavar: <remove user from the group>
+    --group-id:
+      action: store
+      dest: gidNumber
+      metavar: <change primary group ID>
+    --uid-number:
+      action: store
+      dest: uidNumber
+      metavar: <change user ID number>
+    --uid:
+      action: store
+      dest: uid
+      metavar: <user\'s uid>
+  personal information:
+    --first-name:
+      action: store
+      dest: givenName
+      metavar: <new first name>
+    --last-name:
+      action: store
+      dest: sn
+      metavar: <new last name>
+    --full-name:
+      action: store
+      dest: cn
+      metavar: <new full name>
+    --add-email:
+      action: append
+      dest: addMail
+      metavar: <add new email address>
+    --del-email:
+      action: append
+      dest: delMail
+      metavar: <remove email address>
+    --add-phone-no:
+      action: append
+      dest: addTelephoneNumber
+      metavar: <phone number to add>
+    --del-phone-no:
+      action: append
+      dest: delTelephoneNumber
+      metavar: <phone number to remove>
+    --organization:
+      short: -o
+      action: store
+      dest: o
+      metavar: <organization>
+  account specific:
+    --reset-password:
+      short: -r
+      dest: resetPassword
+      action: store_true
+      help: <reset user\'s password>
+    --shell:
+      action: store
+      dest: loginShell
+      metavar: <new shell interpreter path>
+    --home:
+      action: store
+      dest: homeDirectory
+      metavar: <new home directory path>
+#  miscellaneous:
+#    --add-ssh-public-key:
+#      action: append
+#      dest: addPublicSshKey
+#      metavar: <path to new public ssh key>
+#    --del-ssh-public-key:
+#      action: append
+#      dest: delPublicSshKey
+#      metavar: <ssh key fingerprint to remove>
+
+show:
+  description: show account data
+  main:
+    name:
+      action: append
+      help: account name
+      nargs: '*'
+    --verbose:
+      short: -v
+      action: store_true
+      dest: verbose
+      help: be verbose about it
+
+rename:
+  description: rename an existing user account.
+  main:
+    name:
+      action: store
+      metavar: <name>
+      help: account name
+    --new-name:
+      short: -n
+      action: store
+      dest: newName
+      metavar: <new account name>
+
+retire:
+  description: retire an existing account and remove all its privileges.
+  main:
+    name:
+      action: store
+      metavar: <name>
+      help: account name
+
+remove:
+  description: remove an existing account.
+  main:
+    name:
+      action: store
+      metavar: <name>
+      help: account name
+
+type:
+  description: manage user types
+  main:
+    --list:
+      short: -l
+      action: store_true
+      dest: list_types
+      help: list user types
+
+# import:
+#   description: import a large number of users
+#   main:
+#     --from-file:
+#       short: -f
+#       action: store
+#       dest: import_file
+#       metavar: <csv file with user data>
+#     --print-template:
+#       short: -p
+#       action: store_true
+#       dest: print_template
+#       help: export a csv template to stdout

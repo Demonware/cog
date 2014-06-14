@@ -1,0 +1,65 @@
+%YAML 1.0
+---
+accounts:
+  generic:
+    desc: generic user account
+    default:
+      requires:
+      - cn
+      - givenName
+      - sn
+      - uidNumber
+      - userPassword
+      - homeDirectory
+      - uid
+      objectClass:
+      - top
+      - inetOrgPerson
+      - posixAccount
+      - shadowAccount
+      path: /
+      gidNumber: '100'
+      loginShell: /bin/bash
+
+  retired:
+    desc: users retired with extreme prejudice
+    default:
+      private: true
+      path: retired users
+      gidNumber: '9999'
+
+groups:
+  generic:
+    desc: generic system groups
+    default:
+      path: system groups
+      requires:
+      - cn
+      - gidNumber
+      objectClass:
+      - top
+      - posixGroup
+
+  resource:
+    desc: access to resources
+    inherits: generic
+    default:
+      path: resource groups
+
+netgroups:
+  generic:
+    desc: netgroup
+    default:
+      path: netgroups
+      requires:
+      - cn
+      objectClass:
+      - top
+      - nisNetgroup
+
+  security:
+    desc: host access policies
+    inherits: generic
+    default:
+      path: host access policy
+

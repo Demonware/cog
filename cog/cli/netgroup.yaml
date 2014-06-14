@@ -1,0 +1,55 @@
+add:
+  description: add a netgroup
+  main:
+    cn:
+      action: store
+      metavar: <netgroup name>
+  additional arguments:
+    --with-triples:
+      short: -t
+      action: append
+      dest: nisNetgroupTriple
+      metavar: <netgroup triples to add>
+    --description:
+      action: store
+      dest: description
+      metavar: <netgroup description>
+
+edit:
+  description: edit a netgroup
+  main:
+    cn:
+      action: store
+      metavar: <group name>
+  user management:
+    --add-triple:
+      action: append
+      dest: addNisNetgroupTriple
+      metavar: <triples to add>
+    --del-triple:
+      action: append
+      dest: delNisNetgroupTriple
+      metavar: <triples to remove>
+    --description:
+      action: store
+      dest: description
+      metavar: <netgroup description>
+
+rename:
+  description: change netgroup name
+  main:
+    cn:
+      action: store
+      metavar: <netgroup name>
+    --new-name:
+      short: -n
+      action: store
+      dest: newCn
+      metavar: <new netgroup name>
+
+remove:
+  description: remove netgroup
+  main:
+    cn:
+      action: store
+      metavar: <netgroup name>

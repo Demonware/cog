@@ -1,0 +1,89 @@
+grant:
+  description: grant access to user(s) at specified host(s)
+  main:
+    --to-user:
+      short: -u
+      action: append
+      dest: uid
+      nargs: '+'
+      metavar: <user name>
+    --on-host:
+      short: -H
+      action: append
+      dest: host
+      nargs: '+'
+      metavar: <host name>
+    --on-service:
+      short: -s
+      action: append
+      dest: service
+      nargs: '+'
+      metavar: <service short name>
+
+deny:
+  description: deny access to user(s) at specified host(s)
+  main:
+    --to-user:
+      short: -u
+      action: append
+      dest: uid
+      nargs: '+'
+      metavar: <user name>
+    --on-host:
+      short: -H
+      action: append
+      dest: host
+      nargs: '+'
+      metavar: <host name>
+    --on-service:
+      short: -s
+      action: append
+      dest: service
+      nargs: '+'
+      metavar: <service short name>
+
+revoke:
+  description: revoke access grant or denial
+  main:
+    --type:
+      short: -t
+      action: store
+      choices:
+      - grant
+      - deny
+      dest: revoke_type
+      default: grant
+      metavar: <access type>
+    --from-user:
+      short: -u
+      action: append
+      dest: uid
+      nargs: '+'
+      metavar: <user name>
+    --on-host:
+      short: -H
+      action: append
+      dest: host
+      nargs: '+'
+      metavar: <host name>
+    --on-service:
+      short: -s
+      action: append
+      dest: service
+      nargs: '+'
+      metavar: <service short name>
+
+show:
+  description: show access details for user(s) or host(s)
+  main:
+    --type:
+      short: -t
+      action: store
+      choices:
+      - user
+      - host
+      - service
+      dest: query_type
+    query:
+      nargs: '+'
+      help: <hosts, users or services>

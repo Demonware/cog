@@ -1,0 +1,16 @@
+%YAML 1.0
+---
+profile: local
+
+local:
+  description: an example profile
+  base_dn: dc=playground,dc=tree
+  user_dn: ou=Accounts,dc=playground,dc=tree
+  group_dn: ou=Groups,dc=playground,dc=tree
+  netgroup_dn: ou=Groups,dc=playground,dc=tree
+  ldap_uri: ldap://localhost:1389/
+  ldap_encryption: false
+  ldap_cacertfile: /path/to/ca_certificate
+  bind_dn: cn=root,dc=playground,dc=tree
+  bind_pass: password
+

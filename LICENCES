@@ -1,0 +1,7 @@
+Cog is free software distributed under terms of the modified BSD licence,
+as defined in the LICENCE file in the distribution directory.
+
+Cog incorporates a pure python implementation of cidict, case-independent
+dictionary, authored by Gary Wilson Jr as a part of the simple-ldap project
+and distributed under the terms of MIT license (see cog/cidict.py for full
+information). 

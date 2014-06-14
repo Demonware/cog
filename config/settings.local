@@ -1,0 +1,8 @@
+%YAML 1.0
+---
+# look at /etc/cog/settings for all possible settings
+
+local:
+  bind_dn: cn=root,dc=playground,dc=tree
+  ldap_encryption: no
+
