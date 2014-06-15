@@ -42,7 +42,7 @@ def edit_group(args):
     for attr, val in args.iteritems():
         attr = attr.lower()
         if attr == 'description':
-            group.set_description(attr, val)
+            group.set_description(val)
         elif attr == 'addmemberuid':
             group.add_uid(val)
         elif attr == 'delmemberuid':
