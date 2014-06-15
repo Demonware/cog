@@ -116,7 +116,7 @@ def show_user(args):
         for item in search:
             groups = { 'groups': sorted(util.flatten_list([group for group in user.find_groups()])) }
             account = { name: util.merge(dict(item), groups) }
-            print yaml.safe_dump(account, default_flow_style=False)
+            print yaml.safe_dump(account, allow_unicode=True, default_flow_style=False)
 
 
 def main():

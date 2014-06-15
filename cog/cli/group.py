@@ -62,7 +62,7 @@ def show_group(cn):
     if group.exists:
         del(group.data['objectClass'])
         data = dict(group.data)
-        print yaml.safe_dump({ cn: data }, default_flow_style=False)
+        print yaml.safe_dump({ cn: data }, allow_unicode=True, default_flow_style=False)
 
 
 def main():
