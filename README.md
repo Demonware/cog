@@ -26,16 +26,15 @@ system-wide configuration is in /etc/cog, the settings are merged when
 the tool is being run.
 
 To start using cog with our infrastructure you need to change the
-profile in the settings file to 'shared' and configure bind_dn option
+profile in the settings file to 'shared' and configure `bind_dn` option
 using your full DN.
 
-List of available account types (roles) is available through ``cog user
-type -l``.
+List of available account types (roles) is available through `cog user
+type -l`.
 
 # Known Bugs and Limitations #
-
-* cog requires an UTF-8 locale
-* error handling is abysmal, cog throws exceptions everywhere.
+* cog requires locale settings that use UTF-8
+* error handling is abysmal, exceptions are thrown everywhere
 
 # Dependencies #
 
