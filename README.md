@@ -7,7 +7,7 @@ a flexible LDAP management tool
 
 From the root of the source tree run:
 
-    sudo python setup.py install
+    sudo python setup.py install --install-data=/
 
 If you see any errors regarding certificates or server connection,
 remove the /etc/cog directory and run setup.py as root again.
