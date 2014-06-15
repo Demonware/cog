@@ -28,11 +28,9 @@ class Group(object):
         self.ldap_query = settings.get('group_query') % (self.gid)
         self.exists = True
         groups = self.tree.search(self.base_dn, search_filter=self.ldap_query)
-        #if len(groups) > 1:
-        #    raise dir.MultipleObjectsFound
-        #if len(groups) == 1:
-        # FIXME: we have two instances of liveops group and one needs to be killed.
-        if len(groups) >= 1:
+        if len(groups) > 1:
+            raise dir.MultipleObjectsFound
+        elif len(groups) == 1:
             self.data = groups[0]
         else:
             self.exists = False
