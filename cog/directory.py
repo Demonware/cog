@@ -75,9 +75,11 @@ def get_group_base(group_type):
 def get_netgroup_base(netgroup_type):
     return path2rdn(netgroups.get(netgroup_type).get('path')) + settings.get('netgroup_dn')
 
-def find_dn_for_uid():
+def find_dn_for_uid(uid=None):
+    if not uid:
+        uid = util.get_current_uid()
     tree = Tree()
-    users = tree.search(search_filter=('(&(objectClass=posixAccount)(uid=%s))' % util.get_current_uid()), attributes=['dn'])
+    users = tree.search(search_filter=('(&(objectClass=posixAccount)(uid=%s))' % uid), attributes=['dn'])
     if len(users) > 1:
         raise MultipleObjectsFound("Operator's uid not unique in the directory tree, can't guess bind DN.")
     elif not users:
