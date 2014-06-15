@@ -92,15 +92,15 @@ def handle_types(args):
             print "  %s" % acc_type
 
 def rename_user(args):
-    user = User(args.get('name'))
+    user = User(args.get('name'), bind=True)
     user.rename(args.get('newName'))
 
 def retire_user(name):
-    user = User(name)
+    user = User(name, bind=True)
     user.retire()
 
 def remove_user(name):
-    user = User(name)
+    user = User(name, bind=True)
     user.remove()
 
 def show_user(args):
