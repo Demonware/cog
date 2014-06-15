@@ -80,3 +80,10 @@ remove:
     cn:
       action: store
       metavar: <group name>
+
+show:
+  description: show group details
+  main:
+    cn:
+      action: store
+      metavar: <group name>

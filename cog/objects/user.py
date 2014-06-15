@@ -84,6 +84,12 @@ class User(object):
         self.tree.modify(self.data.dn, self.data)
 
     @user_exists
+    def find_groups(self):
+        for uid in self.uid:
+            groups = [x['cn'][0] for x in self.tree.search(search_filter='(&(objectClass=posixGroup)(memberUid=%s))' % uid, attributes=['cn'])]
+            yield groups
+
+    @user_exists
     def strip_groups(self):
         for uid in self.uid:
             groups = [x['cn'][0] for x in self.tree.search(search_filter='(&(objectClass=posixGroup)(memberUid=%s))' % uid, attributes=['cn'])]

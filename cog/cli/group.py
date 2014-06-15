@@ -10,6 +10,7 @@
 import sys
 import getpass
 import argparse
+import yaml
 import cog.util as util
 import cog.directory as dir
 from cog.objects.group import Group
@@ -56,6 +57,14 @@ def remove_group(cn):
     group = Group(cn)
     group.remove()
 
+def show_group(cn):
+    group = Group(cn)
+    if group.exists:
+        del(group.data['objectClass'])
+        data = dict(group.data)
+        print yaml.safe_dump({ cn: data }, default_flow_style=False)
+
+
 def main():
     if arg_no < 2 or sys.argv[1] in ['-h', '--help']:
         print tool_parser.format_help()
@@ -73,6 +82,8 @@ def main():
         rename_group(args)
     elif command == 'remove':
         remove_group(args.get('cn'))
+    elif command == 'show':
+        show_group(args.get('cn'))
 
     sys.exit(0)
 

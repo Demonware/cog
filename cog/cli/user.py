@@ -112,8 +112,10 @@ def show_user(args):
         attrs += ['objectClass', 'loginShell', 'homeDirectory', 'modifiersName', 'modifyTimestamp', 'sshPublicKeys']
     for name in names:
         search = tree.search(search_filter=(query % (user_rdn, name)), attributes=attrs)
+        user = User(name)
         for item in search:
-            account = { name: dict(item) }
+            groups = { 'groups': sorted(util.flatten_list([group for group in user.find_groups()])) }
+            account = { name: util.merge(dict(item), groups) }
             print yaml.safe_dump(account, default_flow_style=False)
 
 

@@ -69,3 +69,9 @@ remove_parser.add_argument(
   'cn', action='store', metavar='<group name>'
 )
 
+# The show command.
+show_parser = tool_subparsers.add_parser('show', help='show group details')
+show_parser.add_argument(
+  'cn', action='store', metavar='<group name>'
+)
+
