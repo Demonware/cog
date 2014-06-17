@@ -47,7 +47,6 @@ def make_user_config():
     conf_dir = '/etc/cog'
     if not os.path.exists(user_dir):
         os.makedirs(user_dir, mode=0750)
-        shutil.copyfile(conf_dir + os.sep + 'templates.yaml', user_dir + os.sep + 'templates.yaml')
         shutil.copyfile(conf_dir + os.sep + 'examples/settings.local', user_dir + os.sep + 'settings')
 
 def main():
