@@ -48,6 +48,16 @@ After cloning the repository for the first time, please run `sh flow-init`
 * cog requires locale settings that use UTF-8
 * error handling is abysmal, exceptions are thrown everywhere
 
+# Testing #
+
+To test you must also install the following dependencies:
+
+* pytohn27-nose
+* python27-mock
+
+To run all tests, run the following in the root directory:
+
+    nosetests-2.7
 # Dependencies #
 
 To install cog you need:
