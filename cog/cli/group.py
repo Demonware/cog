@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-#!/usr/bin/python
 
 # Copyright (c) 2013, Activision Publishing, Inc.
 
