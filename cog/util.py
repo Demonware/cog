@@ -40,9 +40,9 @@ def to_unicode(obj, encoding='utf-8'):
     return obj
 
 
-def utf8(f):
+def ensure_utf8(f):
     """
-    Force the wrapped function to return utf-8 bytestream.
+    Decorator - forces the wrapped function to return utf-8 bytestream.
     """
     @wraps(f)
     def decorated(*args, **kwargs):
@@ -51,13 +51,13 @@ def utf8(f):
 
 
 # password & system helpers
-@utf8
+@ensure_utf8
 def randomized_string(size=16, chars=string.letters + string.digits + string.punctuation):
     # string.printable produces more than we can eat, unfortunately
     return ''.join(random.choice(chars) for x in range(size))
 
 
-@utf8
+@ensure_utf8
 def make_pass(passwd=None):
     """
     Generate password using SHA-512 method, randomized salt and randomized
