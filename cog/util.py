@@ -18,7 +18,11 @@ import crypt
 from passlib.hash import sha512_crypt
 
 def randomized_string(size=16, chars=string.letters + string.digits + string.punctuation):
-    # string.printable produces more than we can eat, unfortunately
+    """
+    Generate randomized string using printable character. (Not using
+    string.printable here because it does produce more than we can eat,
+    unfortunately.)
+    """
     return ''.join(random.choice(chars) for x in range(size))
 
 def make_pass(passwd=None):
@@ -34,12 +38,17 @@ def get_current_uid():
     return pwd.getpwuid(os.getuid()).pw_name
 
 def flatten_list(messy_list):
-    # <http://stackoverflow.com/a/952914>
+    """
+    Flatten an unruly list of lists. Cf. <http://stackoverflow.com/a/952914>
+    """
     return [item for sublist in messy_list for item in sublist]
 
 def merge(d1, d2):
-    # stack overflow <http://stackoverflow.com/a/8310229/218563>
-    for k1,v1 in d1.iteritems():
+    """
+    Merge two dictionaries recursively. Merge the lists embedded within
+    dictionary at the same positions too (with caveats).
+    """
+    for k1, v1 in d1.iteritems():
         if not k1 in d2:
             d2[k1] = v1
         elif isinstance(v1, list):
