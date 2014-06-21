@@ -96,6 +96,18 @@ def merge(d1, d2):
     return d2
 
 
+def apply_to(dct, f):
+    """
+    Apply a function to dictionary-like object values, recursively.
+    """
+    for key in dct:
+        if isinstance(dct[key], dict):
+            dct[key] = apply_to(dct.get(key), f)
+        else:
+            dct[key] = f(dct[key])
+    return dct
+
+
 class Singleton(type):
     _instances = {}
 
