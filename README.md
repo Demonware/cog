@@ -29,7 +29,18 @@ using your full DN.
 List of available account types (roles) is available through `cog user
 type -l`.
 
+# Development #
+
+I'm trying to use the git-flow (in the avh flavour), see that you
+either have the git-flow package installed or check out the
+[gitflow-avh](https://github.com/petervanderdoes/gitflow) sources and
+install the extension manually.
+
+After cloning the repository for the first time, please run `sh
+flow-init` – it will initialise git flow with the values I'm using.
+
 # Known Bugs and Limitations #
+
 * cog requires locale settings that use UTF-8
 * error handling is abysmal, exceptions are thrown everywhere
 
