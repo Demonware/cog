@@ -280,9 +280,31 @@ class Tree(object):
 
     @keep_connected
     @readwrite
+    def modify(self, changed_entry):
+        """
+        Modify contents of an LDAP entry.
+        """
+        dn = changed_entry.dn
+        old_entry = self.get(dn)
+        entry_modlist = modlist.modifyModlist(old_entry, changed_entry,
+                ignore_oldexistent=0)
+        self.ldap_handle.modify_s(dn, entry_modlist)
+
+    @keep_connected
+    @readwrite
+    def replace(self, new_entry):
+        """
+        Replace an existing LDAP entry with a new one.
+        """
+        dn = new_entry.dn
+        self.remove(dn)
+        self.add(dn, new_entry)
+
+    @keep_connected
+    @readwrite
     def remove(self, dn):
         """
-        Remove an entry from the LDAP directory."
+        Remove an entry from the LDAP directory.
         """
         self.ldap_handle.delete_s(dn)
 
@@ -303,26 +325,6 @@ class Tree(object):
         Rename an LDAP entry.
         """
         self.ldap_handle.rename_s(dn, new_rdn, delold=1)
-
-    @keep_connected
-    @readwrite
-    def modify(self, dn, changed_entry):
-        """
-        Modify contents of an LDAP entry.
-        """
-        old_entry = self.get(dn)
-        entry_modlist = modlist.modifyModlist(old_entry, changed_entry,
-                ignore_oldexistent=0)
-        self.ldap_handle.modify_s(dn, entry_modlist)
-
-    @keep_connected
-    @readwrite
-    def replace(self, dn, new_entry):
-        """
-        Replace whole LDAP directory object with a new one.
-        """
-        self.remove(dn)
-        self.add(dn, new_entry)
 
     @keep_connected
     @readwrite

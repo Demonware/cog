@@ -81,7 +81,7 @@ class User(object):
 
     @user_exists
     def commit_changes(self):
-        self.tree.modify(self.data.dn, self.data)
+        self.tree.modify(self.data)
 
     @user_exists
     def find_groups(self):
@@ -115,7 +115,7 @@ class User(object):
         if not password:
             password = getpass.getpass('enter new LDAP password for %s: ' % self.name)
         self.data.replace('userPassword', util.make_pass(password))
-        self.tree.modify(self.data.dn, self.data)
+        self.tree.modify(self.data)
 
     @user_exists
     def rename(self, new_name):
@@ -131,6 +131,6 @@ class User(object):
     def retire(self):
         self.set_password(util.randomized_string(32))
         self.data.replace('gidNumber', accounts.get('retired').get('gidNumber'))
-        self.tree.modify(self.data.dn, self.data)
+        self.tree.modify(self.data)
         self.tree.move(self.data.dn, new_parent=dir.get_account_base('retired'))
         self.strip_groups()

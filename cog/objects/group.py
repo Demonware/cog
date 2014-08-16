@@ -54,7 +54,7 @@ class Group(object):
     @group_exists
     def set_description(self, description):
         self.data.replace('description', description)
-        self.tree.modify(self.data.dn, self.data)
+        self.tree.modify(self.data)
 
     @group_exists
     def rename(self, new_gid):
@@ -75,5 +75,5 @@ class Group(object):
 
     @group_exists
     def commit_changes(self):
-        self.tree.modify(self.data.dn, self.data)
+        self.tree.modify(self.data)
 

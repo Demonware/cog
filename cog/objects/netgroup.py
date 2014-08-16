@@ -56,6 +56,10 @@ class Netgroup(object):
         self.exists = True
 
     @netgroup_exists
+    def commit_changes(self):
+        self.tree.modify(self.data)
+
+    @netgroup_exists
     def set_description(self, description):
         self.data.replace('description', description)
 
@@ -75,7 +79,3 @@ class Netgroup(object):
     @netgroup_exists
     def del_triple(self, triple):
         self.data.remove('nisNetgroupTriple', triple)
-
-    @netgroup_exists
-    def commit_changes(self):
-        self.tree.modify(self.data.dn, self.data)
