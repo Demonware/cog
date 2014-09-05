@@ -1,6 +1,7 @@
 %YAML 1.0
 ---
 profile: local
+user_config: true
 
 local:
   description: an example profile

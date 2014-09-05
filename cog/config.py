@@ -45,8 +45,10 @@ class Profiles(dict):
     __metaclass__ = util.Singleton
 
     def __init__(self):
-
         super(self.__class__, self).__init__({})
+
+        user_settings_file = user_settings_dir + os.sep + 'settings'
+        config_files = [sys_settings_dir + os.sep + 'settings']
 
         self.defaults = {
             'ldap_uri': 'ldap://ldap/',
@@ -60,15 +62,15 @@ class Profiles(dict):
             'min_uidnumber': 0,
             'max_uidnumber': 9998,
             'min_gidnumber': 9200,
-            'max_gidnumber': 9998
+            'max_gidnumber': 9998,
+            'user_config': read_yaml(config_files[0]).get('user_config', True),
         }
 
-        user_settings_file = user_settings_dir + os.sep + 'settings'
-        sys_settings_file = sys_settings_dir + os.sep + 'settings'
-        settings_data = merge_data(sys_settings_file, user_settings_file)
-
+        if self.defaults.get('user_config'):
+            config_files.append(user_settings_dir + os.sep + 'settings')
+        settings_data = merge_data(*config_files)
+        self.user_config = settings_data.pop('user_config')
         self.profile = settings_data.pop('profile')
-
         for k, v in settings_data.iteritems():
             self[k] = v
 
