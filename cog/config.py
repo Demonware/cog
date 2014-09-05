@@ -63,6 +63,10 @@ class Profiles(dict):
             'max_uidnumber': 9998,
             'min_gidnumber': 9200,
             'max_gidnumber': 9998,
+            'use_rfc2307bis_groups': False,
+            'rfc2307bis_group_object_class': 'groupOfMembers',
+            'rfc2307bis_group_member_attribute': 'member',
+            'rfc2307bis_group_sync_attributes': True,
             'user_config': read_yaml(config_files[0]).get('user_config', True),
         }
 

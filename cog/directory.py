@@ -83,9 +83,11 @@ def find_dn_for_uid(uid=None):
     if not uid:
         uid = util.get_current_uid()
     tree = Tree()
-    users = tree.search(search_filter=('(&(objectClass=posixAccount)(uid=%s))' % uid), attributes=['dn'])
+    base_dn = settings.get('user_dn')
+    query = '(&(objectClass=posixAccount)(uid=%s))' % uid
+    users = tree.search(base_dn, search_filter=query, attributes=['dn'])
     if len(users) > 1:
-        raise MultipleObjectsFound("Operator's uid not unique in the directory tree, can't guess bind DN.")
+        raise MultipleObjectsFound("The uid is not unique in the directory tree")
     elif not users:
         user_dn = None
     else:

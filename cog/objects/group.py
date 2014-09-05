@@ -19,6 +19,12 @@ import cog.util as util
 from cog.config import Profiles
 
 settings = Profiles().current()
+if settings.get('use_rfc2307bis_groups'):
+    rfc2307bis = True
+    rfc2307bis_object_class = settings.get('rfc2307bis_group_object_class', 'groupOfMembers')
+    rfc2307bis_member_attribute = settings.get('rfc2307bis_group_member_attribute', 'member')
+    rfc2307bis_sync = settings.get('rfc2307bis_group_sync_attributes', True)
+
 
 class Group(object):
     def __init__(self, gid, group_data=None):
@@ -35,6 +41,8 @@ class Group(object):
         else:
             self.exists = False
             self.data = group_data
+            if rfc2307bis:
+                self.data.append('objectClass', rfc2307bis_object_class)
 
     def group_exists(method):
         """
@@ -65,13 +73,27 @@ class Group(object):
         self.tree.remove(self.data.dn)
 
     @group_exists
-    def add_uid(self, uid):
-        if not self.data.has_key('memberUid') or uid not in self.data['memberUid']:
-            self.data.append('memberUid', uid)
+    def add_uid(self, uids):
+        for uid in uids:
+            if not self.data.has_key('memberUid') or uid not in self.data['memberUid']:
+                self.data.append('memberUid', uid)
+            if rfc2307bis:
+                uid_dn = dir.find_dn_for_uid(uid)
+                if not uid_dn:
+                    raise dir.ObjectNotFound("User object not found.")
+                if (not rfc2307bis_member_attribute in self.data or
+                    uid_dn not in self.data[rfc2307bis_member_attribute]):
+                    self.data.append(rfc2307bis_member_attribute, uid_dn)
 
     @group_exists
-    def del_uid(self, uid):
-        self.data.remove('memberUid', uid)
+    def del_uid(self, uids):
+        for uid in uids:
+            self.data.remove('memberUid', uid)
+            if rfc2307bis:
+                uid_dn = dir.find_dn_for_uid(uid)
+                if not uid_dn:
+                    raise dir.ObjectNotFound("User object not found.")
+                self.data.remove(rfc2307bis_member_attribute, uid_dn)
 
     @group_exists
     def commit_changes(self):
