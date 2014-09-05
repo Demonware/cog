@@ -45,26 +45,26 @@ class ServerUnavailable(DirectoryException):
 
 
 # misc things
-MIN_GID = 9200
-MIN_UID = 0
-
-
 def get_probably_unique_uidnumber():
     tree = Tree()
     # FIXME: use limits stored within directory, fall back to the full
     # directory search only if there is no other option available.
     # return tree.increment_atomically(settings.get('user_defaults_dn'), 'uidNext')
+    max_uidnumber = settings.get('max_uidnumber')
+    min_uidnumber = settings.get('min_uidnumber')
     return str(max([int(x['uidNumber'][0]) for x in
-                    tree.search(search_filter=('(&(objectClass=posixAccount)(uidNumber<=9900))'),
-                    attributes=['uidNumber'])] + [MIN_UID]) + 1)
+                    tree.search(search_filter=('(&(objectClass=posixAccount)(uidNumber<=%s))' % max_uidnumber),
+                                attributes=['uidNumber'])] + [min_uidnumber]) + 1)
 
 
 def get_probably_unique_gidnumber():
     tree = Tree()
     # FIXME: use limits stored within directory!
+    max_gidnumber = settings.get('max_gidnumber')
+    min_gidnumber = settings.get('min_gidnumber')
     return str(max([int(x['gidNumber'][0]) for x in
-                    tree.search(search_filter=('(&(objectClass=posixGroup)(gidNumber<=9900))'),
-                                attributes=['gidNumber'])] + [MIN_GID]) + 1)
+                    tree.search(search_filter=('(&(objectClass=posixGroup)(gidNumber<=%s))' % max_gidnumber),
+                                attributes=['gidNumber'])] + [min_gidnumber]) + 1)
 
 def path2rdn(path):
     path_list = ["ou=%s," % x for x in path.strip('/').split('/')[::-1] if x]

@@ -57,6 +57,10 @@ class Profiles(dict):
             'user_query': '(&(%s=%s)(|(objectClass=posixAccount)(objectClass=inetOrgPerson)))',
             'group_query': '(&(cn=%s)(objectClass=posixGroup))',
             'netgroup_query': '(&(cn=%s)(objectClass=nisNetgroup))',
+            'min_uidnumber': 0,
+            'max_uidnumber': 9998,
+            'min_gidnumber': 9200,
+            'max_gidnumber': 9998
         }
 
         user_settings_file = user_settings_dir + os.sep + 'settings'
