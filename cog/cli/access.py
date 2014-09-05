@@ -87,7 +87,7 @@ def show_access(args):
             query_uids = '(|' + query_uids + ')'
         query = '(&(objectClass=nisNetgroup)(cn=*-*)%s)' % query_uids
         for netgroup_entry in tree.search(search_filter = query, attributes=['cn', 'nisNetgroupTriple']):
-            access_object, access_type = netgroup_entry.get('cn')[0].split('-')
+            access_object, access_type = netgroup_entry.get('cn')[0].rsplit('-', 1)
             access_uids = [x.strip('(-,)') for x in netgroup_entry.get('nisNetgroupTriple')]
             for uid in uids:
                 if uid in access_uids:
