@@ -19,11 +19,14 @@ import cog.util as util
 from cog.config import Profiles
 
 settings = Profiles().current()
-if settings.get('use_rfc2307bis_groups'):
+
+rfc2307bis = False
+rfc2307bis_object_class = settings.get('rfc2307bis_group_object_class')
+rfc2307bis_member_attribute = settings.get('rfc2307bis_group_member_attribute')
+rfc2307bis_sync = settings.get('rfc2307bis_group_sync_attributes')
+
+if dir.is_auxiliary('posixGroup') and dir.is_structural(rfc2307bis_object_class):
     rfc2307bis = True
-    rfc2307bis_object_class = settings.get('rfc2307bis_group_object_class', 'groupOfMembers')
-    rfc2307bis_member_attribute = settings.get('rfc2307bis_group_member_attribute', 'member')
-    rfc2307bis_sync = settings.get('rfc2307bis_group_sync_attributes', True)
 
 
 class Group(object):

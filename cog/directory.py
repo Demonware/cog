@@ -13,6 +13,7 @@ import time
 import ldif
 import ldap
 import ldap.dn
+import ldap.schema
 import ldap.modlist as modlist
 from functools import wraps
 from StringIO import StringIO
@@ -93,6 +94,21 @@ def find_dn_for_uid(uid=None):
     else:
         user_dn = users[0].dn
     return user_dn
+
+# a few schema helper functions
+def get_object_class(oc):
+    _, schema = ldap.schema.urlfetch(settings.get('ldap_uri'))
+    return schema.get_obj(ldap.schema.ObjectClass, oc)
+
+def is_structural(oc):
+    return get_object_class(oc).kind == 0
+
+def is_abstract(oc):
+    return get_object_class(oc).kind == 1
+
+def is_auxiliary(oc):
+    return get_object_class(oc).kind == 2
+
 
 # Classes
 
