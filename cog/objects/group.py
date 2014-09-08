@@ -77,19 +77,24 @@ class Group(object):
 
     @group_exists
     def add_uid(self, uids):
+        if type(uids) is not list:
+            uids = [uids]
         for uid in uids:
-            if not self.data.has_key('memberUid') or uid not in self.data['memberUid']:
+            if ('memberUid' not in self.data or
+                  uid not in self.data['memberUid']):
                 self.data.append('memberUid', uid)
             if rfc2307bis:
                 uid_dn = dir.find_dn_for_uid(uid)
                 if not uid_dn:
                     raise dir.ObjectNotFound("User object not found.")
-                if (not rfc2307bis_member_attribute in self.data or
-                    uid_dn not in self.data[rfc2307bis_member_attribute]):
+                if (rfc2307bis_member_attribute not in self.data or
+                      uid_dn not in self.data[rfc2307bis_member_attribute]):
                     self.data.append(rfc2307bis_member_attribute, uid_dn)
 
     @group_exists
     def del_uid(self, uids):
+        if type(uids) is not list:
+            uids = [uids]
         for uid in uids:
             self.data.remove('memberUid', uid)
             if rfc2307bis:
